@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estimator JS | SoraBanten</title>
+    <!-- Menggunakan Bootstrap 5 dari CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .footer { 
+            background-color: #212529; 
+            color: #ccc; 
+            padding: 30px 0; 
+            margin-top: 80px; 
+        }
+        .card-img-top { 
+            height: 200px; 
+            object-fit: cover; 
+        }
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<!--  Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand text-warning" href="index.html">SoraBanten.</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="packages.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="estimator.html">Estimasi Biaya</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="btn btn-outline-warning ms-lg-3 mt-2 mt-lg-0" href="login.html">Login/Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold">Kalkulator Estimasi Biaya Trip</h2>
+                <p class="text-muted">Hitung budget liburan Anda secara instan.</p>
+            </div>
+            
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4 p-md-5">
+                    <form id="estimatorForm" onsubmit="event.preventDefault(); calculateCost();">
+                        
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">1. Pilih Destinasi</label>
+                            <select class="form-select form-select-lg bg-light" id="destination" required>
+                                <option value="" selected disabled>-- Pilih Paket Tour --</option>
+                                <option value="250000">One Day Trip Anyer (Rp 250.000/pax)</option>
+                                <option value="350000">Open Trip Baduy Luar 2D1N (Rp 350.000/pax)</option>
+                                <option value="1200000">Private Tour Peucang 3D2N (Rp 1.200.000/pax)</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label fw-bold">2. Jumlah Peserta (Pax)</label>
+                            <input type="number" class="form-control form-control-lg bg-light" id="pax" min="1" placeholder="Masukkan angka, contoh: 5" required>
+                            <div class="form-text text-success fw-semibold">Promo: Diskon 10% untuk rombongan 10 orang atau lebih</div>
+                        </div>
+
+                        <div class="mb-5">
+                            <label class="form-label fw-bold">3. Fasilitas Tambahan (Opsional)</label>
+                            <div class="bg-light p-3 rounded">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="addon" value="500000" id="addonDrone">
+                                    <label class="form-check-label text-secondary" for="addonDrone">
+                                        Dokumentasi Drone & Video Cinematic (+ Rp 500.000 / trip)
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="addon" value="250000" id="addonBBQ">
+                                    <label class="form-check-label text-secondary" for="addonBBQ">
+                                        Paket BBQ Malam Spesial Seafood (+ Rp 250.000 / trip)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="addon" value="800000" id="addonBus">
+                                    <label class="form-check-label text-secondary" for="addonBus">
+                                        Jemputan Eksklusif Stasiun/Bandara PP (+ Rp 800.000 / trip)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-dark w-100 btn-lg fw-bold">Hitung Total Biaya Sekarang</button>
+                    </form>
+
+                    <!-- Tempat Result -->
+                    <div id="resultBox" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calculateCost() {
+        const destSelect = document.getElementById('destination');
+        if(!destSelect.value) {
+            alert("Silakan pilih destinasi terlebih dahulu!");
+            return;
+        }
+
+        const destinationPrice = parseInt(destSelect.value);
+        const pax = parseInt(document.getElementById('pax').value);
+        let addonPrice = 0;
+
+        // Ambil value dari checkbox yang di-ceklis
+        const addons = document.querySelectorAll('input[name="addon"]:checked');
+        addons.forEach((addon) => {
+            addonPrice += parseInt(addon.value);
+        });
+
+        if (isNaN(pax) || pax < 1) {
+            document.getElementById('resultBox').innerHTML = '<div class="alert alert-danger">Masukkan jumlah peserta yang valid.</div>';
+            return;
+        }
+
+        // LOGIKA PERHITUNGAN
+        let baseTotal = (destinationPrice * pax);
+        let discount = 0;
+
+        // Aturan Diskon 
+        if (pax >= 10) {
+            discount = baseTotal * 0.1;
+        }
+
+        let grandTotal = (baseTotal - discount) + addonPrice;
+
+        // format mata uang Rupiah
+        const formatter = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' });
+
+        // untuk menampilkan hasil
+        let resultHTML = `
+            <div class="alert alert-success border border-success mt-4 shadow-sm">
+                <h5 class="alert-heading fw-bold mb-3">Rincian Estimasi Biaya</h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-secondary">Biaya Paket (${pax} pax)</span>
+                    <span class="fw-semibold">${formatter.format(baseTotal)}</span>
+                </div>
+        `;
+        
+        if (discount > 0) {
+            resultHTML += `
+                <div class="d-flex justify-content-between mb-2 text-success">
+                    <span>Diskon Rombongan (10%)</span>
+                    <span class="fw-bold">- ${formatter.format(discount)}</span>
+                </div>
+            `;
+        }
+
+        if (addonPrice > 0) {
+            resultHTML += `
+                <div class="d-flex justify-content-between mb-3 text-secondary">
+                    <span>Total Fasilitas Tambahan</span>
+                    <span class="fw-semibold">+ ${formatter.format(addonPrice)}</span>
+                </div>
+            `;
+        }
+        
+        resultHTML += `
+                <hr class="border-success opacity-50">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0 fw-bold">Total Estimasi</h4>
+                    <h3 class="mb-0 text-success fw-bold">${formatter.format(grandTotal)}</h3>
+                </div>
+                <p class="mt-3 mb-0 text-muted" style="font-size: 13px;">*Harga di atas hanya sekadar estimasi. Silakan hubungi admin kami melalui halaman Contact untuk reservasi tanggal.</p>
+            </div>
+        `;
+
+        const resultBox = document.getElementById('resultBox');
+        resultBox.innerHTML = resultHTML;
+        
+        resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+</script>
+
+
+<!-- Footer -->
+<footer class="footer text-center">
+    <div class="container">
+        <p class="mb-0">&copy; 2026 SoraBanten Travel Agency.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

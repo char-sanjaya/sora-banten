@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | SoraBanten</title>
+    <!-- Menggunakan Bootstrap 5 dari CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
+        .hero-section {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+        .footer { 
+            background-color: #212529; 
+            color: #ccc; 
+            padding: 30px 0; 
+            margin-top: 80px; 
+        }
+        .card-img-top { 
+            height: 200px; 
+            object-fit: cover; 
+        }
+        .navbar-brand {
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand text-warning" href="index.html">SoraBanten.</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+       <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="packages.html">Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="gallery.html">Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="estimator.html">Estimasi Biaya</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact Us</a></li>
+        <li class="nav-item"><a class="btn btn-outline-warning ms-lg-3 mt-2 mt-lg-0" href="login.html">Login/Register</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content Area -->
+
+<div class="container mt-5 pt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-5">
+                    <div class="text-center mb-4">
+                        <h3 class="fw-bold">Register Member</h3>
+                        <p class="text-muted small">Silakan daftar untuk mengelola tiket perjalanan Anda</p>
+                    </div>
+                    <form action="#" method="POST">
+                        <div class="mb-3">
+                            <label for="nama" class="form-label text-secondary small fw-bold">Nama Lengkap</label>
+                            <input type="text" class="form-control form-control-lg bg-light" id="nama" placeholder="Nama Lengkap anda" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label text-secondary small fw-bold">Alamat Email</label>
+                            <input type="email" class="form-control form-control-lg bg-light" id="email" placeholder="nama@email.com" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="password" class="form-label text-secondary small fw-bold">Kata Sandi</label>
+                            <input type="password" class="form-control form-control-lg bg-light" id="password" placeholder="••••••••" required>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-dark btn-lg fw-bold">Daftar</button>
+                        </div>
+                    </form>
+                    
+                    <hr class="my-4">
+                    
+                    <div class="text-center">
+                        <p class="text-muted small mb-0">Sudah punya akun?</p>
+                        <a href="login.html" class="text-decoration-none fw-bold text-dark">Masuk</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="footer text-center">
+    <div class="container">
+        <p class="mb-0">&copy; 2026 SoraBanten Travel Agency.</p>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
